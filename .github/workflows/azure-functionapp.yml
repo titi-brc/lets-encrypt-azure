@@ -5,6 +5,7 @@ on:
 
 env:
   ResourceGroup: sino-rg
+
 jobs:
   build:
     runs-on: ubuntu-latest
