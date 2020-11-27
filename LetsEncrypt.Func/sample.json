@@ -1,7 +1,7 @@
 {
   "acme": {
     // letsencrypt account. will receive emails from LetsEncrypt if renewal failed (1-2 weeks before expiry)
-    "email": "you@example.com",
+    "email": "thibaut.briche@outlook.fr",
     // default for all certificates in this file
     // letsencrypt certs are valid 90 days -> renewal is checked daily and occurs 30 days before expiry in this case
     // defaults to 30 days if not set
@@ -17,8 +17,7 @@
     {
       // a single cert with all these hostnames will be issued
       "hostNames": [
-        "example.com",
-        "www.example.com"
+        "www.sinorama.fr"
       ],
       // how to verify the LetsEncrypt challenge (currently only supports type=storageAccount)
       // defaults to assume MSI access to $web container
@@ -39,14 +38,14 @@
           // if MSI is used, the accountName of the storage is needed as well
           // if accountName is not set, assumes same name as target resource
           // note that "-" is automatically removed, e.g. cdn "my-app" -> assumes storage "myapp"
-          "accountName": "example",
+          "accountName": "sinodotfr",
           // 2. connection string (least secure)
           // just set the full connection string in the config:
           "connectionString": "",
           // 3. connection string in keyvault:
           // (function app MSI must be granted Get,List secrets access policies to the keyvault):
           // if keyVaultName not set, assumes same keyvault as in certificateStore section
-          "keyVaultName": "example",
+          "keyVaultName": "sino-keyvault",
           // must contain connection string to storage account
           // defaults to name "Storage" if not set
           "secretName": "Storage"
@@ -59,11 +58,11 @@
           // where to store the certificate upon creation
           // uses name of targetResource if not set
           // azure function MSI requires Certificate Get, List, Import & Update permissions
-          "name": "example",
+          "name": "sino-keyvault",
           // defaults to first hostname with replace(".", "-") due to keyvault limitation (example.com -> example-com)
-          "certificateName": "example-com",
+          "certificateName": "certif-sino-fr",
           // resourcegroup only needed when updating web app (not needed for cdn), defaults to name of keyvault if not set
-          "resourceGroupName": "example"
+          "resourceGroupName": "sino-rg"
         }
       },
       // the resource which will receive the certificate update
@@ -75,13 +74,13 @@
         // "name": "example"
         "properties": {
           // required, name of the cdn
-          "name": "example",
+          "name": "cdn-sino",
           // defaults to name of cdn if not set
-          "resourceGroupName": "example",
+          "resourceGroupName": "sino-rg",
           // will look for all matching domains in the given endpoint of the CDN
           // if not set looks for a single endpoint with the same name as the CDN
           "endpoints": [
-            "example"
+            "sinoFrEndpoint"
           ]
         }
       }
